@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { podcastData } from '@/constants';
-import PodcastCard from '@/components/PodcastCard';
+import PodcastCard from '@/components/ui/PodcastCard';
 
 
 
