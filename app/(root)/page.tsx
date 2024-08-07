@@ -22,6 +22,8 @@ const Home = () => {
         text-white-1">
           {tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)}
         </div>
+
+        <div className='podcast_grid'>
         {podcastData.map(({id, title, description, imgURL}) => (
           <PodcastCard
             key={id}
@@ -31,6 +33,8 @@ const Home = () => {
             podcastId={id}
             />
         ))}
+        </div>
+
 
         <Button className='text-white-1 bg-orange-1'>Button</Button>
       </section>
