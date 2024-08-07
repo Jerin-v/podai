@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react'
 
 const PodcastCard = ({
@@ -9,7 +10,16 @@ const PodcastCard = ({
     podcastId: number;
 }) => {
   return (
-    <div>PodcastCard</div>
+    <div className='cursor-pointer'>
+    <figure className='flex flex-col gap-2'>
+        <Image 
+            src={imgUrl}
+            width={174}
+            height={174}
+            alt={title}
+        />
+    </figure>
+</div>
   )
 }
 
