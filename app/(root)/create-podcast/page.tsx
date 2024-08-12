@@ -28,6 +28,8 @@ import { useState } from "react"
 import { Textarea } from "@/components/ui/textarea"
 import GeneratePodcast from "@/components/GeneratePodcast"
 import GenerateThumbnail from "@/components/GenerateThumbnail"
+import { Loader } from "lucide-react"
+import { Id } from "@/convex/_generated/dataModel"
 
 
 const voiceCategories = ['Alloy', 'Shimmer', 'Nova', 
@@ -35,18 +37,32 @@ const voiceCategories = ['Alloy', 'Shimmer', 'Nova',
 
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
+  podcastTitle: z.string().min(2),
+  podcastDescription: z.string().min(2),
 })
 
 const CreatePodcast = () => {
+  const [imagePrompt, setimagePro] = useState('')
+  const [ImageStorageId, setImageStorageId] = 
+  useState<Id<"_storage"> | null>(null)
+  const [imageUrl, setimageUrl] = useState('')
+  
+  const [audioUrl, setaudioUrl] = useState('')
+  const [audioStorageId, setaudioStorageId] = 
+  useState<Id<"_storage"> | null>(null)
+  const [audioDuration, setaudioDuration] = useState(0)
+  
+  const [voicePrompt, setvoicePrompt] = useState('')
   const [voiceType, setVoiceType] = useState<string | null>(null)
+  
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      podcastTitle: "",
+      podcastDescription: "",
     },
   })
  
@@ -137,6 +153,26 @@ const CreatePodcast = () => {
           <GeneratePodcast />
 
           <GenerateThumbnail />
+
+          <div className="mt-10 w-full">
+            <Button type="submit"
+            className="text-16 w-full bg-orange-1
+            py-4 font-extrabold text-white-1
+            transition-all duration-500
+            hover:bg-black-1">
+              {isSubmitting ? (
+                <>
+                  <Loader size={20} className="animate-spin
+                  ml-2" />
+                  Submitting...
+                </>
+              ) : (
+                'Submit and Publish Podcast'
+              )}
+            </Button>
+
+          </div>
+
         </div>
 
       </form>
