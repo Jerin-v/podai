@@ -27,7 +27,7 @@ import { cn } from "@/lib/utils"
 import { useState } from "react"
 
 const voiceCategories = ['Alloy', 'Shimmer', 'Nova', 
-  'echo', 'Fable', 'Onyx']
+  'Echo', 'Fable', 'Onyx']
 
 
 const formSchema = z.object({
