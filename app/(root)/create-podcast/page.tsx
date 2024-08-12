@@ -25,6 +25,10 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import { Textarea } from "@/components/ui/textarea"
+import GeneratePodcast from "@/components/GeneratePodcast"
+import GenerateThumbnail from "@/components/GenerateThumbnail"
+
 
 const voiceCategories = ['Alloy', 'Shimmer', 'Nova', 
   'Echo', 'Fable', 'Onyx']
@@ -110,10 +114,31 @@ const CreatePodcast = () => {
               />
           )}
         </Select>
-
-
         </div>
+
+        <FormField
+          control={form.control}
+          name="podcastDescription"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-2.5">
+              <FormLabel className="text-16
+              font-bold text-white-1">Description</FormLabel>
+              <FormControl>
+                <Textarea className="input-class
+                focus-visible:ring-orange-1"placeholder="Write a short 
+                podcast description" {...field} />
+              </FormControl>
+              <FormMessage className="text-white-1" />
+            </FormItem>
+          )}
+        />
         </div>
+        <div className="flex flex-col pt-10">
+          <GeneratePodcast />
+
+          <GenerateThumbnail />
+        </div>
+
       </form>
     </Form>
     </section>
