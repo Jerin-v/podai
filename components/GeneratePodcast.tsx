@@ -4,14 +4,42 @@ import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { Loader } from 'lucide-react'
+import { useAction } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 
-const useGeneratePodcast = (props: GeneratePodcastProps) => {
-  // Logic for podcast generation
+const useGeneratePodcast = ({
+  setAudio, voiceType, voicePrompt, setAudioStorageId
+}: GeneratePodcastProps) => {
+  const [isGenerating, setIsGenerating] = useState(false)
 
-  return {
-    isGenerating: false,
-    generatePodcast: () => {},
+  const getPodcastAudio = useAction(api.openai.generateAudioAction)
+
+  const generatePodcast = async () => {
+    setIsGenerating(true)
+    setAudio('')
+
+    if(!voicePrompt) {
+      return setIsGenerating(false)
+    }
+
+    try {
+      const response = await getPodcastAudio({
+        voice: voiceType,
+        input: voicePrompt
+      })
+
+      const blob = new Blob([response], { type: 'audio/mpeg' })
+      
+
+    } catch (error) {
+      console.log('Error generating podcast', error)
+      //todo show error message
+      setIsGenerating(false)
+    }
+
   }
+
+  return { isGenerating, generatePodcast }
 }
 
 const GeneratePodcast = (props: GeneratePodcastProps) => {
